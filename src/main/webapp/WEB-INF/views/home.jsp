@@ -7,6 +7,12 @@
 	<title>Home</title>
 </head>
 <body>
-${serverTime}
+
+	<form method="get">
+		<input type="text" name="id">
+		<button>전송</button>
+	</form>
+	${email}
+
 </body>
 </html>
