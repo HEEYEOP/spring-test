@@ -13,12 +13,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.green.test.dao.MemberDAO;
+import kr.green.test.service.MemberService;
+import kr.green.test.vo.MemberVO;
 
 @Controller
 public class HomeController {
 	
 	@Autowired
 	MemberDAO memberDao;
+	
+	@Autowired
+	MemberService memberService;
+	
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -28,10 +34,24 @@ public class HomeController {
 		
 		String email =memberDao.getEmail(id);
 		System.out.println(email);
-		
 		model.addAttribute("email", email);
-		
 		
 		return "home";
 	}
+	//로그인------------------------------------------------------------------------------------//
+	@RequestMapping(value ="/login", method = RequestMethod.GET)
+	public String loginGet() {
+		logger.info("로그인 페이지 실행");
+		return "login";
+	}
+	@RequestMapping(value ="/login", method = RequestMethod.POST)
+	public String loginPost(MemberVO obj) {
+		logger.info("로그인 중");
+		
+		if(memberService.confrim(obj))
+			return "home";
+		return "/login";
+	}
+	
+	
 }
