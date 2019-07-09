@@ -7,6 +7,6 @@ import kr.green.test.vo.MemberVO;
 
 public interface MemberService {
 
-	public boolean confrim(MemberVO obj);
+	public boolean confirm(MemberVO obj);
 
 }

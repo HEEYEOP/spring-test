@@ -40,7 +40,7 @@ public class HomeController {
 	}
 	//로그인------------------------------------------------------------------------------------//
 	@RequestMapping(value ="/login", method = RequestMethod.GET)
-	public String loginGet() {
+	public String  loginGet() {
 		logger.info("로그인 페이지 실행");
 		return "login";
 	}
@@ -48,7 +48,7 @@ public class HomeController {
 	public String loginPost(MemberVO obj) {
 		logger.info("로그인 중");
 		
-		if(memberService.confrim(obj))
+		if(memberService.confirm(obj))
 			return "home";
 		return "/login";
 	}

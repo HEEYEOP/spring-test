@@ -13,7 +13,7 @@ public class MemberServiceImp implements MemberService{
 	MemberDAO memberDao;
 	
 	@Override
-	public boolean confrim(MemberVO obj) {
+	public boolean confirm(MemberVO obj) {
 		if(obj == null)
 			return false;
 		MemberVO dbValue = memberDao.getMember(obj);
