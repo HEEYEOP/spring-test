@@ -10,5 +10,9 @@
 	<select id="getBoard" resultType="kr.green.test.vo.BoardVO">
 		select * from board where num=#{num}
 	</select>
+	
+	<update id="viewsCount">
+		update board set views = views + 1 where num=#{num}
+	</update>
 
 </mapper>

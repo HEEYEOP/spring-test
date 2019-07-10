@@ -18,6 +18,12 @@ public class BoardServiceImp implements BoardService {
 	
 		return boardDao.getBoardList();
 	}
+
+	@Override
+	public BoardVO getBoard(BoardVO board) {
+		boardDao.viewsCount(board);
+		return boardDao.getBoard(board);
+	}
 	
 
 }

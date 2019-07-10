@@ -9,5 +9,7 @@ public interface BoardDAO {
 	ArrayList<BoardVO> getBoardList();
 	
 	BoardVO getBoard(BoardVO board);
+	
+	void viewsCount(BoardVO board);
 
 }

@@ -31,14 +31,16 @@ public class BoardController {
 	
 	@RequestMapping(value="/board/display", method= RequestMethod.GET) 
 	public String BoardDisplayGet(Model model, BoardVO board) {
-		System.out.println(board);
-		//게시번호를 넘겨줄테니 게시번호가 같은 게시글 하나를 가져와랑
-		BoardVO oneBoard = boardDao.getBoard(board);
-		System.out.println("------------------");
-		System.out.println(oneBoard);
 		
-		if(oneBoard != null)
-			model.addAttribute("oneBoard", oneBoard);
+		
+		
+		if(board != null) {
+			BoardVO oneBoard = boardService.getBoard(board);
+			System.out.println(oneBoard);
+			
+			if(oneBoard != null)
+				model.addAttribute("oneBoard", oneBoard);
+		}	
 		return "board/display"; 
 	}
 	
