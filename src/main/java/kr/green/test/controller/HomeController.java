@@ -29,7 +29,7 @@ public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model, String id) { //jsp에서 넘기는 변수명과 컨트롤러 매개변수 이름이 같아야한다.
+	public String home(Model model, String id) { 	//jsp에서 넘기는 변수명과 컨트롤러 매개변수 이름이 같아야한다.
 		logger.info("Welcome home! The client locale is {}.");
 		
 		String email =memberDao.getEmail(id);
