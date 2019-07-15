@@ -13,17 +13,16 @@ public class MemberServiceImp implements MemberService{
 	MemberDAO memberDao;
 	
 	@Override
-	public boolean confirm(MemberVO obj) {
+	public MemberVO confirm(MemberVO obj) {
 		if(obj == null)
-			return false;
+			return null;
 		MemberVO dbValue = memberDao.getMember(obj);
-		System.out.println(dbValue);
 		if(dbValue == null) 
-			return false;
+			return null;
 		
 		if(obj.getPw().equals(dbValue.getPw()))
-			return true;
-		return false;
+			return dbValue;
+		return null;
 	}
 
 }

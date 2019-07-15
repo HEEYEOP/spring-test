@@ -31,9 +31,7 @@ public class BoardController {
 	
 	@RequestMapping(value="/board/display", method= RequestMethod.GET) 
 	public String BoardDisplayGet(Model model, BoardVO board) {
-		
-		
-		
+	
 		if(board != null) {
 			BoardVO oneBoard = boardService.getBoard(board);
 			System.out.println(oneBoard);
@@ -42,6 +40,11 @@ public class BoardController {
 				model.addAttribute("oneBoard", oneBoard);
 		}	
 		return "board/display"; 
+	}
+	
+	@RequestMapping(value="/board/enroll", method = RequestMethod.GET)
+	public String BoardEnrollGet() {
+		return "board/enroll";
 	}
 	
 	
