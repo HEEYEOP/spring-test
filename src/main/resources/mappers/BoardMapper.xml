@@ -14,5 +14,14 @@
 	<update id="viewsCount">
 		update board set views = views + 1 where num=#{num}
 	</update>
+	
+	<insert id="insertBoard">
+		insert into board(title, contents, writer, file) values(#{title}, #{contents}, #{writer}, #{file})
+	</insert>
+	
+	<update id="updateBoard">
+		update board set title=#{title}, contents=#{contents}, file=#{file} where num =#{num}
+	
+	</update>
 
 </mapper>

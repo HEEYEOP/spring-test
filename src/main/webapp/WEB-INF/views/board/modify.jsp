@@ -6,19 +6,19 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-<title>T새게시물등록</title>
+<title>T게시물수정</title>
 </head>
 <body>
-	<h1>T새 게시물 등록</h1>
-	<form action="<%=request.getContextPath()%>/board/enroll" method=POST>
+	<h1>게시물수정</h1>
+	<form action="<%=request.getContextPath()%>/board/modify?num=${origin.num}" method=POST>
 		<div class="container-fluid">
 			<div class="form-group">
 	  			<label >제목</label>
-	  			<input type="text" class="form-control" name="title" >
+	  			<input type="text" class="form-control" name="title" value="${origin.title}">
 			</div>
 			<div class="form-group">
 	  			<label >내용</label>
-	  			<textarea rows="10"  class="form-control" name="contents" ></textarea>
+	  			<textarea rows="10"  class="form-control" name="contents" >${origin.contents}</textarea>
 			</div>
 			<div class="form-group">
 	  			<label >작성자</label>
@@ -26,17 +26,15 @@
 			</div>
 			<div class="form-group">
 	  			<label >작성일</label>
-	  			<input type="text" class="form-control" name="registered" readonly > 
+	  			<input type="text" class="form-control" name="registered" readonly value="${origin.registered}" > 
 			</div>
 			<div class="form-group">
 	  			<label >조회수</label>
-	  			<input type="text" class="form-control" name="views" value="0" readonly >
-	  					  															<!-- 언제 name을 지정해줘야하는지 해주지 않아야하는지, value는 어떨때 지정해주는지 잘 생각하기 -->
-	  				
+	  			<input type="text" class="form-control" name="views" value="0" readonly value="${origin.views}" > 				
 			</div>
 			<div class="form-group">
 	  			<label >파일</label>
-	  			<input type="text" class="form-control" name="file" >
+	  			<input type="text" class="form-control" name="file" value="${origin.file}" >
 			</div>
 		</div>
 		<button class="btn btn-primary btn-block">확인</button>

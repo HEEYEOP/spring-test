@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <html>
-<html lang="en">
+
 
 <head>
 
@@ -36,24 +36,31 @@
 	
 	<div>
 		<div class="offset-4 col-4 border border-dark mt-5">
-			<h1 class="text-center">T로그인</h1>
-			<form method="post" action="<%= request.getContextPath()%>/login">
-				<div class="row">
-					<label class="col-4">아이디</label>
-					<input name="id" type="text"class="form-control col-7" placeholder="아이디">
-				</div>
-				<div class="row">
-					<label class="col-4">비밀번호</label>
-					<input name="pw" type="password"class="form-control col-7" placeholder="비밀번호">
-				</div>
-				
-				<div class="offset-8 col-3 clearfix p-0">
-					<button class="btn btn-primary float-right">로그인</button>
-				</div>
-			</form>
+			<%-- <c:if test="${user eq null } "> --%>
+			
+				<h1 class="text-center">T로그인</h1>
+				<form method="post" action="<%= request.getContextPath()%>/login">
+					<div class="row">
+						<label class="col-4">아이디</label>
+						<input name="id" type="text"class="form-control col-7" placeholder="아이디">
+					</div>
+					<div class="row">
+						<label class="col-4">비밀번호</label>
+						<input name="pw" type="password"class="form-control col-7" placeholder="비밀번호">
+					</div>
+					
+					<div class="offset-8 col-3 clearfix p-0">
+						<button class="btn btn-primary float-right">로그인</button>
+					</div>
+				</form>
+			<%-- </c:if> --%>
+			
+			<c:if test="${user ne null} ">
+			현재 사용자:${user.id}
+			</c:if>
 		</div>
 	</div>
-	<a href="<%= request.getContextPath()%>/signout">
+	<a href="<%= request.getContextPath()%>/logout">
 		<button type="button" class="btn btn-success">로그아웃</button>
 	</a>
 	<br>
@@ -66,6 +73,5 @@
 
 </body>
 
-</html>
 </html>
  

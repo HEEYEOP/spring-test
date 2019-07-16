@@ -2,6 +2,8 @@ package kr.green.test.service;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import kr.green.test.vo.BoardVO;
 
 public interface BoardService {
@@ -9,5 +11,12 @@ public interface BoardService {
 	ArrayList<BoardVO> getBoardList();
 
 	BoardVO getBoard(BoardVO board);
+
+	void insertBoard(BoardVO newBoard);
+
+	void updateBoard(BoardVO modifyBoard, HttpServletRequest r);
+
+
+	
 
 }

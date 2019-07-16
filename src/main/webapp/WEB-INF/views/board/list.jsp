@@ -19,6 +19,8 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/topbar.jsp"></jsp:include>
+	
+	
 
 	  <h2>T게시판</h2>
 	  <table class="table table-hover">
@@ -50,7 +52,7 @@
 	
 	<a href="<%= request.getContextPath()%>/board/enroll"><button type="button" class="btn btn-primary btn-block">등록</button></a>
 	<br>
-	<a href="<%= request.getContextPath()%>/signout"><button type="button" class="btn btn-primary btn-block">로그아웃</button></a>
+	<a href="<%= request.getContextPath()%>/logout"><button type="button" class="btn btn-primary btn-block">로그아웃</button></a>
 	
 	현재 로그인 정보 : ${user}
 	

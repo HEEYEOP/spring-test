@@ -62,7 +62,7 @@ public class HomeController {
 		}
 	}
 	
-	@RequestMapping(value ="/signout", method = RequestMethod.GET)
+	@RequestMapping(value ="/logout", method = RequestMethod.GET)
 	public String signoutPost(HttpServletRequest r) {
 		logger.info("로그아웃");
 		r.getSession().removeAttribute("user");

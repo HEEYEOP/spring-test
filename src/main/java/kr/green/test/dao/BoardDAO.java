@@ -12,4 +12,8 @@ public interface BoardDAO {
 	
 	void viewsCount(BoardVO board);
 
+	void insertBoard(BoardVO newBoard);
+
+	void updateBoard(BoardVO modifyBoard);
+
 }
