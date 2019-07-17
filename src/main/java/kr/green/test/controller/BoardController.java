@@ -1,5 +1,6 @@
 package kr.green.test.controller;
 
+import java.awt.PageAttributes.OriginType;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -72,10 +73,15 @@ public class BoardController {
 	//게시물 수정----------------------------------------------
 	
 	@RequestMapping(value="/board/modify", method = RequestMethod.GET)
-	public String BoardModifyGet(Model model, BoardVO orijinBoard) {
+	public String BoardModifyGet(Model model, BoardVO originBoard, HttpServletRequest r) {
 		logger.info("T게시물 수정페이지 실행");
-		System.out.println(orijinBoard);
-		model.addAttribute("origin", boardService.getBoard(orijinBoard));
+		
+		if(!boardService.isWriter(r, originBoard)) {
+			model.addAttribute("num", originBoard);
+			return "redirect:/board/list";
+		}
+		System.out.println(originBoard);
+		model.addAttribute("origin", boardService.getBoard(originBoard));
 		
 		return "board/modify";
 	}
@@ -92,7 +98,17 @@ public class BoardController {
 	
 	//게시물 삭제--------------------------------------------------
 	
-	
+	@RequestMapping(value="/board/delete", method = RequestMethod.GET)
+	public String BoardDeleteGet(BoardVO deleteBoard, HttpServletRequest r) {
+		logger.info("T게시물 삭제");
+		if(boardService.isWriter(r, deleteBoard)) {
+			boardService.deleteBoard(deleteBoard);
+		}
+		
+		
+		
+		return "redirect:/board/list";
+	}
 	
 	
 	

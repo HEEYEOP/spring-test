@@ -16,4 +16,6 @@ public interface BoardDAO {
 
 	void updateBoard(BoardVO modifyBoard);
 
+	void updateValid(BoardVO deleteBoard);
+
 }

@@ -41,6 +41,8 @@
 		
 		<c:if test="${user.id eq oneBoard.writer}">
 			<a href="<%=request.getContextPath()%>/board/modify?num=${oneBoard.num}"><button class="btn btn-primary btn-block">수정</button></a><br>
+			<a href="<%=request.getContextPath()%>/board/delete?num=${oneBoard.num}"><button class="btn btn-primary btn-block">삭제</button></a><br>
+			
 		</c:if>
 		
 		<a href="<%= request.getContextPath()%>/board/list"><button type="button" class="btn btn-primary btn-block">목록</button></a>

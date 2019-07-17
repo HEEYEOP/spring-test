@@ -49,6 +49,23 @@ public class BoardServiceImp implements BoardService {
 		
 	}
 
+	@Override
+	public void deleteBoard(BoardVO deleteBoard) {
+		boardDao.updateValid(deleteBoard);
+	}
+
+	@Override
+	public boolean isWriter(HttpServletRequest r, BoardVO originBoard) {
+		MemberVO user = (MemberVO)r.getSession().getAttribute("user");
+		BoardVO board = boardDao.getBoard(originBoard);
+		if(user != null && board != null && user.getId().equals(board.getWriter())) {
+			return true;
+		}
+		return false;
+	}
+	
+	
+
 	
 
 }

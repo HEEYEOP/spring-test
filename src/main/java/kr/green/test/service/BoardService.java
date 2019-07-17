@@ -16,6 +16,10 @@ public interface BoardService {
 
 	void updateBoard(BoardVO modifyBoard, HttpServletRequest r);
 
+	void deleteBoard(BoardVO deleteBoard);
+
+	boolean isWriter(HttpServletRequest r, BoardVO originBoard);
+
 
 	
 
