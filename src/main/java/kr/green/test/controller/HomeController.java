@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,7 @@ public class HomeController {
 	
 	@Autowired
 	MemberService memberService;
+	
 	
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -68,6 +70,26 @@ public class HomeController {
 		r.getSession().removeAttribute("user");
 		return "redirect:/";
 	}
+	
+	//----------------7/22월 복습-----------------------------------
+	@RequestMapping(value="/joinMembership", method= RequestMethod.GET)
+	public String joinMembershipGet() {
+		logger.info("회원가입페이지 실행");
+
+		return "joinMembership";
+	}
+	
+	@RequestMapping(value="/joinMembership", method= RequestMethod.POST)
+	public String joinMembershipPost(MemberVO mvo) {
+		logger.info("회원가입  진행중");
+
+		memberService.enroll(mvo);
+		
+		return "redirect:/";
+	}
+	
+	
+	
 	
 	
 }

@@ -8,6 +8,8 @@ public interface MemberDAO {
 	public String getEmail(String id);
 
 	public MemberVO getMember(MemberVO obj);
+
+	public void insertMember(MemberVO mvo);
 	
 
 }

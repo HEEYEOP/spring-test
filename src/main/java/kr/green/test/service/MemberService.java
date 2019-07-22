@@ -9,4 +9,6 @@ public interface MemberService {
 
 	public MemberVO confirm(MemberVO obj);
 
+	public void enroll(MemberVO mvo);
+
 }
