@@ -35,10 +35,9 @@ public class BoardController {
 		logger.info("게시판페이지 실행");
 		int totalCount = boardService.countBoards();
 		
-		
 		 PageMaker pageMaker = new PageMaker();
 		 pageMaker.setCriteria(cri);
-		 pageMaker.setDisplayPageNum(5);
+		 pageMaker.setDisplayPageNum(3);
 		 pageMaker.setTotalCount(totalCount);
 		 model.addAttribute("pageMaker", pageMaker);
 

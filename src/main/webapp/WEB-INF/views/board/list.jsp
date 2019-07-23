@@ -56,11 +56,20 @@
 	            <a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${pageMaker.startPage-1}">Previous</a>
 	        </li>
 	    </c:if>
+	    
 	    <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="index">
-	        <li class="page-item">
-	            <a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${index}">${index}</a>
-	        </li>
+	    	<c:if test="${index == pageMaker.criteria.page}">
+		        <li class="page-item active">
+		            <a class="page-link " href="<%=request.getContextPath()%>/board/list?page=${index}">${index}</a>
+		        </li>
+		    </c:if>
+		    <c:if test="${index != pageMaker.criteria.page}">
+		        <li class="page-item">
+		            <a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${index}">${index}</a>
+		        </li>
+		    </c:if>
 	    </c:forEach>
+	    
 	    <c:if test="${pageMaker.next}">
 	        <li class="page-item">
 	            <a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${pageMaker.endPage+1}">Next</a>
