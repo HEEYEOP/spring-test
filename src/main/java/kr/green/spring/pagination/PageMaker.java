@@ -9,6 +9,8 @@ public class PageMaker {
 	private int displayPageNum;
 	private Criteria criteria;
 	
+	
+	
 	public void calcData() {
 		
 		endPage = (int) (Math.ceil(criteria.getPage()/(double) displayPageNum)*displayPageNum);

@@ -31,15 +31,21 @@ public class BoardController {
 
 	 
 	@RequestMapping(value="/board/list", method= RequestMethod.GET) 
-	public String BoardListGet(Model model, Criteria cri) {
+	public String BoardListGet(Model model, Criteria cri, Integer contentsNum) {
 		logger.info("게시판페이지 실행");
 		int totalCount = boardService.countBoards();
-		
+
+		 System.out.println(contentsNum);
+		 if(contentsNum != null)
+			 cri.setPerPageNum(contentsNum);
+		 
+		 
 		 PageMaker pageMaker = new PageMaker();
 		 pageMaker.setCriteria(cri);
 		 pageMaker.setDisplayPageNum(3);
 		 pageMaker.setTotalCount(totalCount);
 		 model.addAttribute("pageMaker", pageMaker);
+		 
 
 		ArrayList<BoardVO> boardList = boardService.getBoardList(cri);
 		model.addAttribute("boardList", boardList);
