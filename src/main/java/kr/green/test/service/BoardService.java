@@ -4,11 +4,12 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
+import kr.green.spring.pagination.Criteria;
 import kr.green.test.vo.BoardVO;
 
 public interface BoardService {
 
-	ArrayList<BoardVO> getBoardList();
+	ArrayList<BoardVO> getBoardList(Criteria cri);
 
 	BoardVO getBoard(BoardVO board);
 
@@ -19,6 +20,8 @@ public interface BoardService {
 	void deleteBoard(BoardVO deleteBoard);
 
 	boolean isWriter(HttpServletRequest r, BoardVO originBoard);
+
+	int countBoards();
 
 
 	

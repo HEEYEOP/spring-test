@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.green.spring.pagination.Criteria;
+import kr.green.spring.pagination.PageMaker;
 import kr.green.test.dao.BoardDAO;
 import kr.green.test.service.BoardService;
 import kr.green.test.service.MemberService;
@@ -28,16 +30,28 @@ public class BoardController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	 
-	@RequestMapping(value="/board/list", method= RequestMethod.GET) //value는 url의 경로를 넣어주는 것. 그래서 마지막에 자동으로 .jsp가 붙음
-	public String BoardListGet(Model model) {
+	@RequestMapping(value="/board/list", method= RequestMethod.GET) 
+	public String BoardListGet(Model model, Criteria cri) {
 		logger.info("게시판페이지 실행");
-
+		int totalCount = boardService.countBoards();
 		
-		ArrayList<BoardVO> boardList = boardService.getBoardList();
+		
+		 PageMaker pageMaker = new PageMaker();
+		 pageMaker.setCriteria(cri);
+		 pageMaker.setDisplayPageNum(5);
+		 pageMaker.setTotalCount(totalCount);
+		 model.addAttribute("pageMaker", pageMaker);
+
+		ArrayList<BoardVO> boardList = boardService.getBoardList(cri);
 		model.addAttribute("boardList", boardList);
 	
-		return "board/list";	//이거는 URL가 아니고 파일 폴더 경로임. 그래서 앞에 자동으로 views/가 붙음
+		return "board/list";	
 	}
+	
+	
+	
+	
+	
 	
 	@RequestMapping(value="/board/display", method= RequestMethod.GET) 
 	public String BoardDisplayGet(Model model, BoardVO board) {
@@ -105,10 +119,9 @@ public class BoardController {
 			boardService.deleteBoard(deleteBoard);
 		}
 		
-		
-		
 		return "redirect:/board/list";
 	}
+	
 	
 	
 	

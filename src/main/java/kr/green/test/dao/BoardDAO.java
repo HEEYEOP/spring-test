@@ -2,11 +2,12 @@ package kr.green.test.dao;
 
 import java.util.ArrayList;
 
+import kr.green.spring.pagination.Criteria;
 import kr.green.test.vo.BoardVO;
 
 public interface BoardDAO {
 
-	ArrayList<BoardVO> getBoardList();
+	ArrayList<BoardVO> getBoardList(Criteria cri);
 	
 	BoardVO getBoard(BoardVO board);
 	
@@ -17,5 +18,8 @@ public interface BoardDAO {
 	void updateBoard(BoardVO modifyBoard);
 
 	void updateValid(BoardVO deleteBoard);
+
+	int countBoards();
+
 
 }

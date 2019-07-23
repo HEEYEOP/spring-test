@@ -4,11 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.green.test.dao.BoardDAO">
 	<select id="getBoardList" resultType="kr.green.test.vo.BoardVO">
-		select * from board where valid='I'
+		select * from board where valid='I' order by num desc limit #{pageStart}, #{perPageNum}
 	</select>
 	
 	<select id="getBoard" resultType="kr.green.test.vo.BoardVO">
-		select * from board where num=#{num} and valid='I'
+		select * from board where num=#{num} and valid='I' 
 	</select>
 	
 	<update id="viewsCount">
@@ -27,5 +27,9 @@
 	<update id="updateValid">
 		update board set valid='D' where num=#{num}
 	</update>
+	
+	<select id="countBoards" resultType = "int">
+		select count(*) from board where valid ='I'
+	</select>
 
 </mapper>
