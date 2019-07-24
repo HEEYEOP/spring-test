@@ -51,13 +51,11 @@
 					
 					<div class="offset-8 col-3 clearfix p-0">
 						<button class="btn btn-primary float-right">로그인</button>
-					</div>
-					<div class="offset-8 col-3 clearfix p-0">
 						<a href="<%=request.getContextPath()%>/joinMembership"><button type="button" class="btn btn-primary float-right">회원 가입</button></a>
 					</div>
 				</form>
-			<%-- </c:if> --%>
-			
+				<a href="<%=request.getContextPath()%>/sendingPw">비밀번호찾기</a>
+				
 			<c:if test="${user ne null} ">
 			현재 사용자:${user.id}
 			</c:if>
@@ -75,6 +73,7 @@
 	
 
 </body>
-
 </html>
+
+
  

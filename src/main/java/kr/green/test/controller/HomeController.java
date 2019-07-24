@@ -1,16 +1,22 @@
 package kr.green.test.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.text.DateFormat;
+import java.util.Base64.Decoder;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +38,9 @@ public class HomeController {
 	
 	@Autowired
 	MemberService memberService;
+	
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	
 	
@@ -103,8 +112,41 @@ public class HomeController {
 	    }else {
     		model.addAttribute("checking", false);
 		    return false;
-	    }
-	   
+	    }  
+	}
+	
+	@RequestMapping(value="/sendingPw", method = RequestMethod.GET)
+	public String sendingPwGet() {
+		logger.info("비밀번호찾기 페이지 실행");
+
+		return "sendingPw";
+		
+	}
+	
+	@RequestMapping(value="/sendingPwCheck", method = RequestMethod.POST)
+	@ResponseBody
+	public String sendingPwCheckPost(@RequestBody String idANDemail) {
+		logger.info("비밀번호찾기_아이디,이메일체크");
+		
+		try {
+			idANDemail = URLDecoder.decode(idANDemail, "UTF-8");
+			System.out.println(idANDemail);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	 
+	
+		return "redirect:/sendingPw";
+		
+	}
+	
+	
+
+	
+	
+	@RequestMapping(value="/complete", method = RequestMethod.GET)
+	public String completeGet() {
+		return "complete";
 	}
 	
 	
