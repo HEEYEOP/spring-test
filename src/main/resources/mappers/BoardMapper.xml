@@ -38,6 +38,10 @@
 	
 	<select id="countBoards" resultType = "int">
 		select count(*) from board where valid ='I'
+							<if test="type == 2">and title like concat('%',#{search},'%')</if>
+							<if test="type == 3">and writer like concat('%',#{search},'%')</if> 
+							<if test="type == 4">and contents like concat('%',#{search},'%')</if> 
+							
 	</select>
 
 </mapper>

@@ -40,4 +40,14 @@ public class MemberServiceImp implements MemberService{
 	   
 	}
 
+	@Override
+	public boolean dupCheck(String id) {
+		MemberVO mVO = new MemberVO();
+		mVO.setId(id);
+		if(memberDao.getMember(mVO) != null) {
+			return true;
+		}
+		return false;
+	}
+
 }

@@ -4,15 +4,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
-<title>게시판(list)</title>
-<style>
- table{
-	background-color: #888;
- }
-</style>	
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script type="text/javascript" src="//code.jquery.com/jquery-3.4.1.js"></script>
+	
+	<title>게시판(list)</title>
+	<style>
+		 table{
+			background-color: #888;
+		 }
+	</style>	
 
 </head>
 <body>
@@ -53,6 +54,21 @@
 		  </c:forEach>
 	    </tbody>
 	  </table>
+	
+	 <div class="container" name="search-box">
+	        <div class="col-12">
+	            <form class="form-inline float-right"  style="display:inline-block">
+	                <select class="form-control" id="type" name="type">
+	                	<option value="2" <c:out value="${pageMaker.criteria.type==2?'selected':'' }"/>>제목</option>
+					   <option value="3" <c:out value="${pageMaker.criteria.type==3?'selected':'' }"/>>작성자</option>
+					   <option value="4" <c:out value="${pageMaker.criteria.type==4?'selected':'' }"/>>내용</option>
+	  				</select>
+	  				
+					<input class="form-control mr-sm-2" type="text" placeholder="검색어를 입력하세요" name="search" value="${pageMaker.criteria.search}">
+					<button class="btn btn-success" type="submit">검색</button>
+				</form>
+			</div>
+		</div>
 	<br>
 	<br>
 	
@@ -82,23 +98,7 @@
 	        </li>
 	    </c:if>
 	</ul> 
-	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-	    <div class="container">
-	        <div class="col-12">
-	            <form class="form-inline float-right"  style="display:inline-block">
-	                <select class="form-control" id="type" name="type">
-	                    <option value="1" <c:out value="${pageMaker.criteria.type==1?'selected':'' }"/>>선택</option>
-	                	<option value="2" <c:out value="${pageMaker.criteria.type==2?'selected':'' }"/>>제목</option>
-					   <option value="3" <c:out value="${pageMaker.criteria.type==3?'selected':'' }"/>>저자</option>
-					   <option value="4" <c:out value="${pageMaker.criteria.type==4?'selected':'' }"/>>내용</option>
-	  				</select>
-	  				
-					<input class="form-control mr-sm-2" type="text" placeholder="검색어를 입력하세요" name="search" value="${pageMaker.criteria.search}">
-					<button class="btn btn-success" type="submit">검색</button>
-				</form>
-			</div>
-		</div>
-	</nav>
+	
 	
 	
 	
@@ -108,17 +108,6 @@
 	
 	현재 로그인 정보 : ${user}
 	
-	
-
-
-
-
-
-
-
-
-
-
 
 </body>
 </html>

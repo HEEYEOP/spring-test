@@ -2,7 +2,9 @@ package kr.green.test.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,8 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.green.test.dao.MemberDAO;
 import kr.green.test.service.MemberService;
@@ -88,6 +92,20 @@ public class HomeController {
 		return "redirect:/";
 	}
 	
+	//-----------------7/24(수)복습---------------------------
+	@RequestMapping(value="/dupCheck")
+	@ResponseBody
+	public boolean idcheck(@RequestBody String id, Model model){
+	    
+	    if(memberService.dupCheck(id)) {
+    		model.addAttribute("checking", true);
+	    	return true;	    	
+	    }else {
+    		model.addAttribute("checking", false);
+		    return false;
+	    }
+	   
+	}
 	
 	
 	

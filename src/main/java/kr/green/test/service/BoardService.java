@@ -21,7 +21,7 @@ public interface BoardService {
 
 	boolean isWriter(HttpServletRequest r, BoardVO originBoard);
 
-	int countBoards();
+	int countBoards(Criteria cri);
 
 
 	

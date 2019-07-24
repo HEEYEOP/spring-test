@@ -11,4 +11,6 @@ public interface MemberService {
 
 	public void enroll(MemberVO mvo);
 
+	public boolean dupCheck(String id);
+
 }

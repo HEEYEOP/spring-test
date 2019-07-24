@@ -66,9 +66,9 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public int countBoards() {
+	public int countBoards(Criteria cri) {
 		
-		return boardDao.countBoards();
+		return boardDao.countBoards(cri);
 	}
 	
 	

@@ -19,7 +19,7 @@ public interface BoardDAO {
 
 	void updateValid(BoardVO deleteBoard);
 
-	int countBoards();
+	int countBoards(Criteria cri);
 
 
 }

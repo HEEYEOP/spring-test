@@ -47,11 +47,26 @@
 			return true;
 		return false;
 	}
-		
+	
+	var isCheck = -1; // -1: 중복체크를 해야하는 경우
+	
 	$(document).ready(function(){
+		
+		$('input[name=id]').change(function(){ //아이디 중복검사를 통해 회원가입이 가능한 아이디를 입력했더라도 이후에 아이디창을 통해 아이디 값이 변경되었을경우 isCheck = -1로 한다
+			isCheck = -1;
+		})
+		
+		
 		$('#signup').submit(function(){
 			if(!checkLength('#signup input[name=id]',8,13)){
 				alert('아이디는 8~13자리입니다.');
+				return false;
+			}
+			if(isCheck == -1){
+				alert("중복체크를 해주세요")
+				return false;
+			}else if(isCheck == 1){
+				alert("이미 가입된 아이디입니다. 다른 아이디를 입력해주세요")
 				return false;
 			}
 			if(!checkLength('#signup input[name=pw]',8,13)){
@@ -69,11 +84,41 @@
 			
 			alert('회원가입에 성공했습니다.');
 			return true;
-		})	
+		})
 		
+		//------------------------------------------------------
+		
+		$('#dup').click(function(){
+			var id = $('input[name=id]').val();
+			
+			$.ajax({
+				async:true,
+				type:'POST',
+				data:id,
+				url:"<%=request.getContextPath()%>/dupCheck",
+				dataType:"json", 
+				contentType:"application/json; charset=UTF-8",
+				success : function(checking){
+					if(checking){
+						alert("해당 아이디가 존재합니다");
+						isCheck = 1; 			//1: 이미 회원이라 회원가입이 불가능한 경우
+						
+					}else{
+						alert("아이디는 사용가능합니다");
+						isCheck = 0; 			//0: 회원가입이 가능한 경우
+					}
+					
+				}
+
+			});
+		})
+		
+	
 		
 		
 	})
+	
+	
 	
 	</script>	
 	
@@ -85,7 +130,7 @@
 	<div>
 		<div class="offset-4 col-4 border border-dark mt-5">
 			<h1 class="text-center">회원가입</h1>
-			<form method="post" action="<%=request.getContextPath()%>/joinMembership">
+			<form method="post" action="<%=request.getContextPath()%>/joinMembership" id="signup">
 				<div class="row">
 					<label class="col-4">아이디</label>
 					<input name="id" type="text"class="form-control col-7" placeholder="아이디" >
@@ -121,7 +166,7 @@
 					<input name="name" type="text"class="form-control col-7" placeholder="이름">
 				</div>
 				<div class="offset-8 col-3 clearfix p-0">
-					<button class="btn btn-primary float-right">가입</button>
+					<button class="btn btn-primary float-right" id="submit">가입</button>
 				</div>
 			</form>
 		</div>

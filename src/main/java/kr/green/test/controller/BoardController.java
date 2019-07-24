@@ -33,7 +33,7 @@ public class BoardController {
 	@RequestMapping(value="/board/list", method= RequestMethod.GET) 
 	public String BoardListGet(Model model, Criteria cri, Integer contentsNum) {
 		logger.info("게시판페이지 실행");
-		int totalCount = boardService.countBoards();
+		int totalCount = boardService.countBoards(cri);
 
 		if(contentsNum == null) {
 			 cri.setPerPageNum(10);
@@ -49,7 +49,6 @@ public class BoardController {
 		 model.addAttribute("pageMaker", pageMaker);
 		 
 		 
-		 System.out.println("이거 게시물리스트 가져오라고 일 시킬때 사용할 변수 크리크리"+cri);
 		ArrayList<BoardVO> boardList = boardService.getBoardList(cri);
 		model.addAttribute("boardList", boardList);
 	
