@@ -8,6 +8,7 @@
 </head>
 <body>
 <h1>해당 e-mail로 임시비밀번호를 발송했습니다</h1>
+<a href="<%=request.getContextPath()%>/login"><button>확인</button></a>
 
 </body>
 </html>

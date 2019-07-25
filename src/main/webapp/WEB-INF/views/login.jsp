@@ -46,7 +46,7 @@
 				</div>
 				
 				<div class="offset-8 col-3 clearfix p-0">
-					<button class="btn btn-primary float-right">가입</button>
+					<button class="btn btn-primary float-right">로그인</button>
 				</div>
 			</form>
 		</div>

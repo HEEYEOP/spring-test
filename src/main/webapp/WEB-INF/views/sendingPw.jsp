@@ -16,21 +16,29 @@
 			
 			var id = $('input[name=id]').val();
 			var email = $('input[name=email]').val();
+			if(id.length == 0 || email.length == 0){
+				alert('아이디와 이메일을 입력해주세요');
+				return false;
+			}
 			
+			var send = false;
 			$.ajax({
-				async:true,
+				async:false,
 				type:'POST',
 				data:{'id':id,'email':email},
-				url:"<%=request.getContextPath()%>/sendingPwCheck",
+				url:"<%=request.getContextPath()%>/ajaxCheck",
 				dataType:"json", 
 				contentType:"application/json; charset=UTF-8",
-				success : function(checking){
-				
+				success : function(data){
+					if(!data.isMember){
+						alert('회원정보가 일치하지 않습니다');
+					}else{
+						alert('새비밀번호를 해당 메일로 전송했습니다')
+					}
+					send = data.isMember;
 				}
-			
 			})
-			
-			
+			return send;
 			
 		})
 	})
@@ -44,7 +52,7 @@
 	<div class="offset-4 col-4 border border-dark mt-5">
 					<h1 class="text-center">T비밀번호찾기</h1>
 					<br>
-					<form action="" method="">
+					<form method="post" action="<%=request.getContextPath()%>/password/send">
 						<div class="row">
 							<label class="col-4">아이디</label>
 							<input name="id" type="text"class="form-control col-7" placeholder="해당 아이디를 입력하세요">

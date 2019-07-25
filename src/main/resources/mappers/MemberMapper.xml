@@ -14,4 +14,8 @@
   <insert id="insertMember">
   	insert into member(id,pw,gender,email,name) values(#{id},#{pw},#{gender},#{email},#{name})
   </insert>
+  
+  <update id="modify">
+  	update member set pw=#{pw}, email=#{email}, gender=#{gender}, name=#{name} where id=#{id}
+  </update>
 </mapper>

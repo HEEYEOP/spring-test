@@ -111,33 +111,62 @@ public class HomeController {
 	    	return true;	    	
 	    }else {
     		model.addAttribute("checking", false);
-		    return false;
+		    return false; //--------------------------------------이거 안되는건가?
 	    }  
 	}
+	
 	
 	@RequestMapping(value="/sendingPw", method = RequestMethod.GET)
 	public String sendingPwGet() {
 		logger.info("비밀번호찾기 페이지 실행");
-
 		return "sendingPw";
-		
 	}
 	
-	@RequestMapping(value="/sendingPwCheck", method = RequestMethod.POST)
+	
+	
+	
+	
+	@RequestMapping(value="/ajaxCheck", method = RequestMethod.POST)
 	@ResponseBody
-	public String sendingPwCheckPost(@RequestBody String idANDemail) {
+	public Map<Object, Object> ajaxCheckPost(@RequestBody String idANDemail) {
 		logger.info("비밀번호찾기_아이디,이메일체크");
+		
+		Map<Object,	Object> map = new HashMap<Object, Object>();
 		
 		try {
 			idANDemail = URLDecoder.decode(idANDemail, "UTF-8");
-			System.out.println(idANDemail);
+			//System.out.println(idANDemail);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-	 
-	
-		return "redirect:/sendingPw";
+		String [] tmpStr = idANDemail.split("&");
+		String id = memberService.getVal(tmpStr[0]);
+		String email = memberService.getVal(tmpStr[1]);
 		
+		boolean isMember = memberService.confirm(id,email);
+		map.put("isMember", isMember);
+		return map;
+		
+	}
+	
+	@RequestMapping(value="/password/send", method = RequestMethod.POST)
+	public String passwordSendPost(String id, String email) {
+		logger.info("비밀번호 생성하며 메일보내기");
+		
+		String str ="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
+		String newPw = "";
+		
+		while(newPw.length() < 8) {
+			int index = (int)(Math.random()*str.length());
+			newPw += str.charAt(index);
+		}
+		String title = "변경된 비밀번호입니다";
+		String contents ="새 비밀번호 :"+ newPw;
+		memberService.sendEmail(title,contents,email);
+		//-------------//
+		
+		memberService.modify(id,newPw);
+		return "redirect:/complete";
 	}
 	
 	
@@ -146,6 +175,7 @@ public class HomeController {
 	
 	@RequestMapping(value="/complete", method = RequestMethod.GET)
 	public String completeGet() {
+		
 		return "complete";
 	}
 	

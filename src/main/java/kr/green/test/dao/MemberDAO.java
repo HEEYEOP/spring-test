@@ -10,6 +10,8 @@ public interface MemberDAO {
 	public MemberVO getMember(MemberVO obj);
 
 	public void insertMember(MemberVO mvo);
+
+	public void modify(MemberVO user);
 	
 
 }

@@ -13,4 +13,12 @@ public interface MemberService {
 
 	public boolean dupCheck(String id);
 
+	public String getVal(String str);
+
+	public boolean confirm(String id, String email);
+
+	public void sendEmail(String title, String contents, String email);
+
+	public void modify(String id, String newPw);
+
 }

@@ -1,6 +1,10 @@
 package kr.green.test.service;
 
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +18,8 @@ public class MemberServiceImp implements MemberService{
 	MemberDAO memberDao;
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	
 	@Override
@@ -48,6 +54,59 @@ public class MemberServiceImp implements MemberService{
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public String getVal(String str) {
+		String [] tmpStr = str.split("=");
+		if(tmpStr.length != 2)
+			return null;
+		return tmpStr[1];
+	}
+
+	@Override
+	public boolean confirm(String id, String email) {
+		MemberVO obj = new MemberVO();
+		obj.setId(id);
+		
+		MemberVO user = memberDao.getMember(obj);
+		if(user != null && user.getEmail().equals(email))
+			return true;
+		return false;
+	}
+
+	@Override
+	public void sendEmail(String title, String contents, String email) {
+		try {
+			MimeMessage message = mailSender.createMimeMessage();
+	        MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+	        
+	        String setfrom ="yjihyo1321@gmail.com";
+
+	        messageHelper.setFrom(setfrom);  
+	        messageHelper.setTo(email);     
+	        messageHelper.setSubject(title); 
+	        messageHelper.setText(contents); 
+
+	        mailSender.send(message);
+	    } catch(Exception e){
+	        System.out.println(e);
+	    }
+		
+	}
+
+	@Override
+	public void modify(String id, String newPw) {
+		MemberVO obj = new MemberVO();
+		obj.setId(id);
+		MemberVO user = memberDao.getMember(obj);
+		if(user == null)
+			return;
+		String encPw = passwordEncoder.encode(newPw);
+		user.setPw(encPw);
+		memberDao.modify(user);
+			
+		
 	}
 
 }
