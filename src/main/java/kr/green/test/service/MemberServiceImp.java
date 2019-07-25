@@ -127,6 +127,11 @@ public class MemberServiceImp implements MemberService{
 			form.setGender(user.getGender());
 		}
 		
+		String encPw = passwordEncoder.encode(form.getPw());
+	    form.setPw(encPw);
+	    
+		
+		
 		memberDao.modify(form);
 		
 	}

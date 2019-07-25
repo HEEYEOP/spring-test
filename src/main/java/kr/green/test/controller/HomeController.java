@@ -107,13 +107,15 @@ public class HomeController {
 	public boolean idcheck(@RequestBody String id, Model model){
 	    
 	    if(memberService.dupCheck(id)) {
-    		model.addAttribute("checking", true);
+    		model.addAttribute("checking", true); //----이거는 모델에 담아보내줘서 jsp에서 받는게 아니고 그냥 return 값만 써주면 알아서 jsp에서 받음
 	    	return true;	    	
 	    }else {
     		model.addAttribute("checking", false);
 		    return false; //--------------------------------------이거 안되는건가?
 	    }  
 	}
+	
+	//--------------------------------------------------------------------
 	
 	
 	@RequestMapping(value="/sendingPw", method = RequestMethod.GET)
@@ -132,7 +134,7 @@ public class HomeController {
 		logger.info("비밀번호찾기_아이디,이메일체크");
 		
 		Map<Object,	Object> map = new HashMap<Object, Object>();
-		
+		 
 		try {
 			idANDemail = URLDecoder.decode(idANDemail, "UTF-8");
 			//System.out.println(idANDemail);
@@ -185,10 +187,10 @@ public class HomeController {
 	@RequestMapping(value="/memberModify", method = RequestMethod.POST)
 	public String memberModifyPost(MemberVO form) {
 		logger.info("회원정보 수정중");
-		System.out.println(form); //변경된 정보를 담은 memberVo객체가 넘어옴
+		System.out.println(form); //업데
 		
 		memberService.update(form);
-		return "redirect:/memberModify";
+		return "redirect:/";
 	}
 	
 	

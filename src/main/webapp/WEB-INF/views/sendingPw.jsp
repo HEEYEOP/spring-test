@@ -29,8 +29,8 @@
 				url:"<%=request.getContextPath()%>/ajaxCheck",
 				dataType:"json", 
 				contentType:"application/json; charset=UTF-8",
-				success : function(data){
-					if(!data.isMember){
+				success : function(data){ //이 data는 내가 컨트롤러에서 넘겨받는애들을 어떻게 지칭할것인지 정해준것이고
+					if(!data.isMember){ //내가 지칭해준 이름속에 담긴애를 가져온것 (담긴애의 이름은 컨트롤러에서 지정해준다)
 						alert('회원정보가 일치하지 않습니다');
 					}else{
 						alert('새비밀번호를 해당 메일로 전송했습니다')
@@ -50,24 +50,26 @@
 </head>
 <body>
 	<div class="offset-4 col-4 border border-dark mt-5">
-					<h1 class="text-center">T비밀번호찾기</h1>
-					<br>
-					<form method="post" action="<%=request.getContextPath()%>/password/send">
-						<div class="row">
-							<label class="col-4">아이디</label>
-							<input name="id" type="text"class="form-control col-7" placeholder="해당 아이디를 입력하세요">
-						</div>
-						<br>
-						<div class="row">
-							<label class="col-4">e-mail</label>
-							<input name="email" type="email"class="form-control col-7" placeholder="해당 이메일을 입력하세요">
-						</div>
-						<br>
-						<div class="offset-8 col-4 clearfix p-0">
-							<button class="btn btn-primary float-right" id="submit">비밀번호찾기</button>
-						</div>
-					</form>
+		<h1 class="text-center">T비밀번호찾기</h1>
+		<br>
+		<form method="post" action="<%=request.getContextPath()%>/password/send">
+			<div class="row">
+				<label class="col-4">아이디</label>
+				<input name="id" type="text"class="form-control col-7" placeholder="해당 아이디를 입력하세요">
+			</div>
+			<br>
+			<div class="row">
+				<label class="col-4">e-mail</label>
+				<input name="email" type="email"class="form-control col-7" placeholder="해당 이메일을 입력하세요">
+			</div>
+			<br>
+			<div class="offset-8 col-4 clearfix p-0">
+				<button class="btn btn-primary float-right" id="submit">비밀번호찾기</button>
+			</div>
+		</form>
 	</div>
+	
+
 
 
 
