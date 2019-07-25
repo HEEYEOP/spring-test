@@ -21,4 +21,6 @@ public interface MemberService {
 
 	public void modify(String id, String newPw);
 
+	public void update(MemberVO form);
+
 }

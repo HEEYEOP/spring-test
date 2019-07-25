@@ -56,14 +56,16 @@
 				</form>
 				<a href="<%=request.getContextPath()%>/sendingPw">비밀번호찾기</a>
 				
-			<c:if test="${user ne null} ">
-			현재 사용자:${user.id}
-			</c:if>
 		</div>
 	</div>
 	<a href="<%= request.getContextPath()%>/logout">
 		<button type="button" class="btn btn-success">로그아웃</button>
 	</a>
+	<c:if test="${user ne null}">
+		<a href="<%=request.getContextPath()%>/memberModify">
+			<button type="button" class="btn btn-success">회원정보 수정</button>
+		</a>
+	</c:if>
 	<br>
 	<br>
 	

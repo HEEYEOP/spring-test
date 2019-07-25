@@ -33,7 +33,7 @@ public class MemberServiceImp implements MemberService{
 		if(passwordEncoder.matches(obj.getPw(), dbValue.getPw()))
 			return dbValue;
 		return null;
-	}
+	} 
 
 	@Override
 	public void enroll(MemberVO mvo) {
@@ -106,6 +106,28 @@ public class MemberServiceImp implements MemberService{
 		user.setPw(encPw);
 		memberDao.modify(user);
 			
+		
+	}
+
+	@Override
+	public void update(MemberVO form) {
+		
+		MemberVO user = memberDao.getMember(form);
+		
+		if(form.getName() == null) {
+			form.setName(user.getName());
+		}
+		if(form.getEmail() == null) {
+			form.setEmail(user.getEmail());
+		}
+		if(form.getPw() == null || form.getPw().length() == 0) {
+			form.setPw(user.getPw());
+		}
+		if(form.getGender() == null) {
+			form.setGender(user.getGender());
+		}
+		
+		memberDao.modify(form);
 		
 	}
 

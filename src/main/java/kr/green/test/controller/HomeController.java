@@ -169,15 +169,29 @@ public class HomeController {
 		return "redirect:/complete";
 	}
 	
-	
-
-	
-	
 	@RequestMapping(value="/complete", method = RequestMethod.GET)
-	public String completeGet() {
-		
+	public String completeGet() {	
 		return "complete";
 	}
+	//------------회원 정보수정
+	@RequestMapping(value="/memberModify", method = RequestMethod.GET)
+	public String memberModifyGet(HttpServletRequest r) {
+		logger.info("회원정보 수정 페이지 실행");
+		MemberVO user = (MemberVO)r.getSession().getAttribute("user");
+		System.out.println(user);
+		return "memberModify";
+	}
+	
+	@RequestMapping(value="/memberModify", method = RequestMethod.POST)
+	public String memberModifyPost(MemberVO form) {
+		logger.info("회원정보 수정중");
+		System.out.println(form); //변경된 정보를 담은 memberVo객체가 넘어옴
+		
+		memberService.update(form);
+		return "redirect:/memberModify";
+	}
+	
+	
 	
 	
 	
