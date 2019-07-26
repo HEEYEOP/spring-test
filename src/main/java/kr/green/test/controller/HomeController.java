@@ -177,23 +177,24 @@ public class HomeController {
 	}
 	//------------회원 정보수정
 	@RequestMapping(value="/memberModify", method = RequestMethod.GET)
-	public String memberModifyGet(HttpServletRequest r) {
+	public String memberModifyGet(Boolean success, Model model) { //꼭 래퍼클래스 Boolean을 써줘야 한다. 왜?null값도 저장할 수 있어야하니까. 왜? 처음에 회원수정페이지에 들어왔을 경우 success에는null값이 있을테니까
 		logger.info("회원정보 수정 페이지 실행");
-		MemberVO user = (MemberVO)r.getSession().getAttribute("user");
-		System.out.println(user);
+		model.addAttribute("success", success);
+		
 		return "memberModify";
 	}
 	
 	@RequestMapping(value="/memberModify", method = RequestMethod.POST)
-	public String memberModifyPost(MemberVO form, HttpServletRequest r) {
+	public String memberModifyPost(MemberVO form, HttpServletRequest r, Model model) {
 		logger.info("회원정보 수정중");
 		
 		System.out.println(form); //업데이트하려고하는 정보를 담고 있는 form
 		
 		MemberVO okUpdate = memberService.update(form);
 		boolean t = memberService.updateSession(r,okUpdate);
+		model.addAttribute("success", t);
 		
-		return "redirect:/";
+		return "redirect:/memberModify";
 	}
 	
 	

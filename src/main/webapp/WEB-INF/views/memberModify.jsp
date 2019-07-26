@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>회원정보 수정 페이지</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -13,6 +13,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   
   <script type="text/javascript">
+  
 	function checkSame(sel1, sel2){
 		var val1 = $(sel1).val();
 		var val2 = $(sel2).val();
@@ -40,9 +41,23 @@
 				return false;
 			}
 			
-			alert('회원가입에 성공했습니다.'); 
+			alert('회원정보를 수정을 요청했습니다'); 
 			return true;
 		})
+		if(${success ne null}){
+			if(${success eq true}){
+				alert('수정이 완료되었습니다');
+			}else{
+				alert('기존정보를 잘못입력하였습니다');
+			}
+		}
+			
+		$('body').keydown(function(e){
+			if(e.which == 116 ){
+				location.href= "<%=request.getContextPath()%>/memberModify";
+			}
+		})
+		
 	})
   
   </script>
@@ -68,7 +83,7 @@
 	    <div class="form-group">
 		    <label for="email">E-mail:</label> 
 		    <div class="input-group mb-3">
-			    <input type="text" class="form-control" placeholder="Your Email" value="${user.email}">
+			    <input type="text" class="form-control" id="email" name="email" value="${user.email}">
 			    <div class="input-group-append">
 			    	<select>
 			    		<option>
@@ -96,13 +111,22 @@
 				   <input type="checkbox" class="form-check-input" id="genderW" name="gender" value="F" <c:if test="${user.gender eq 'F'}">checked</c:if>>여성
 				 </label>
 			</div>
+			
 	    
-	    <button type="submit" class="btn btn-primary float-right">Submit</button>
+	    <button type="submit" class="btn btn-primary float-right" id="submit">Submit</button>
 	    <br>
 	    <br>
 	    로그인정보 : ${user}
-	    
+	    ${t}
+	  
 	  </form>
 	</div>
 </body>
 </html>
+
+
+
+
+<div>
+				<input type="hidden" value="${t}" id="t">
+			</div>
