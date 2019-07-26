@@ -40,7 +40,7 @@
 				return false;
 			}
 			
-			alert('회원가입에 성공했습니다.');
+			alert('회원가입에 성공했습니다.'); 
 			return true;
 		})
 	})
@@ -63,7 +63,7 @@
 	    </div>
 	    <div class="form-group">
 	      <label for="pwd">Password:</label>
-	      <input type="password" class="form-control" id="pw" name="pw">
+	      <input type="password" class="form-control" id="pw" name="pw" placeholder="새 비밀번호를 입력해주세요">
 	    </div>
 	    <div class="form-group">
 		    <label for="email">E-mail:</label> 

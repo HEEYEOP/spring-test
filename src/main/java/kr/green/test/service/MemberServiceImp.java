@@ -1,6 +1,8 @@
 package kr.green.test.service;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -110,7 +112,7 @@ public class MemberServiceImp implements MemberService{
 	}
 
 	@Override
-	public void update(MemberVO form) {
+	public MemberVO update(MemberVO form) {
 		
 		MemberVO user = memberDao.getMember(form);
 		
@@ -122,18 +124,31 @@ public class MemberServiceImp implements MemberService{
 		}
 		if(form.getPw() == null || form.getPw().length() == 0) {
 			form.setPw(user.getPw());
+		}else {
+			String encPw = passwordEncoder.encode(form.getPw());
+		    form.setPw(encPw);
 		}
 		if(form.getGender() == null) {
 			form.setGender(user.getGender());
 		}
 		
-		String encPw = passwordEncoder.encode(form.getPw());
-	    form.setPw(encPw);
-	    
-		
-		
 		memberDao.modify(form);
 		
+		return form;
+		
+		
+	}
+
+	@Override
+	public boolean updateSession(HttpServletRequest r, MemberVO okUpdate) {
+		if(okUpdate == null)
+			return false;
+		//HttpSession s = r.getSession().removeAttribute("user");
+		
+		HttpSession s = r.getSession();
+		s.removeAttribute("user");
+		s.setAttribute("user", okUpdate);
+		return true;
 	}
 
 }

@@ -185,11 +185,14 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/memberModify", method = RequestMethod.POST)
-	public String memberModifyPost(MemberVO form) {
+	public String memberModifyPost(MemberVO form, HttpServletRequest r) {
 		logger.info("회원정보 수정중");
-		System.out.println(form); //업데
 		
-		memberService.update(form);
+		System.out.println(form); //업데이트하려고하는 정보를 담고 있는 form
+		
+		MemberVO okUpdate = memberService.update(form);
+		boolean t = memberService.updateSession(r,okUpdate);
+		
 		return "redirect:/";
 	}
 	

@@ -33,13 +33,7 @@
 	class="kr.green.test.interceptor.UnauthInterceptor"></beans:bean>
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	<interceptors>
 	
     	<interceptor>
@@ -49,6 +43,7 @@
     	
     	<interceptor>
         	<mapping path="/board/*"/>
+        	<mapping path="/memberModify"/>
         	<beans:ref bean="authInterceptor"/>
     	</interceptor>
     	
