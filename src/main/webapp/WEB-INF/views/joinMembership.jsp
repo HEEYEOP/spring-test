@@ -12,6 +12,8 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 	<script type="text/javascript" src="//code.jquery.com/jquery-3.4.1.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery.validate.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/additional-methods.js"></script> <!-- 위에줄과 현재줄 순서 중요함 -->
 	
 	
 
@@ -31,23 +33,14 @@
 		font-size: 100px;
 		color: red;
 	}
+	.error{
+		color: red;
+		padding: 0;
+	}
 	</style>
 	
 	<script type="text/javascript">
-	function checkSame(sel1, sel2){
-		var val1 = $(sel1).val();
-		var val2 = $(sel2).val();
-		if(val1 == val2)
-			return true;
-		return false;
-	}
-	function checkLength(sel,min,max){
-		var val = $(sel).val();	
-		if(val.length >= min && val.length <= max )
-			return true;
-		return false;
-	}
-	
+
 	var isCheck = -1; // -1: 중복체크를 해야하는 경우
 	
 	$(document).ready(function(){
@@ -56,12 +49,8 @@
 			isCheck = -1;
 		})
 		
-		
 		$('#signup').submit(function(){
-			if(!checkLength('#signup input[name=id]',8,13)){
-				alert('아이디는 8~13자리입니다.');
-				return false;
-			}
+		
 			if(isCheck == -1){
 				alert("중복체크를 해주세요")
 				return false;
@@ -69,18 +58,7 @@
 				alert("이미 가입된 아이디입니다. 다른 아이디를 입력해주세요")
 				return false;
 			}
-			if(!checkLength('#signup input[name=pw]',8,13)){
-				alert('비밀번호는 8~13자리입니다.')
-				return false;
-			}
-			if(!checkSame('#signup input[name=pw]','#signup input[name=pwCheck]')){
-				alert('비밀번호와 일치하지 않습니다.')
-				return false;
-			}
-			if($('#signup input[type=email]').val().length == 0){
-				alert('이메일을 입력해주세요')
-				return false;
-			}
+			
 			
 			alert('회원가입에 성공했습니다.');
 			return true;
@@ -113,11 +91,72 @@
 			});
 		})
 		
-	
-		
-		
+		 $("#signup").validate({
+		        rules: {
+		            id: {
+		                required : true,
+		                minlength : 8,
+		                maxlength : 13
+		                
+		            },
+		            pw: {
+		                required : true,
+		                minlength : 8,
+		                maxlength : 13,
+		                regex: /^\w*(\d[A-z]|[A-z]\d)\w*$/
+		            },
+		            pwCheck: {
+		                required : true,
+		                equalTo : pw
+		            },
+		            
+		            name: {
+		                required : true,
+		                minlength : 2
+		            },
+		            
+		            email: {
+		                required : true,
+		                email : true
+		            }
+		        },
+		        //규칙체크 실패시 출력될 메시지
+		        messages : {
+		            id: {
+		                required : "필수로입력하세요",
+		                minlength : "최소 {0}글자이상이어야 합니다",
+		                maxlength : "최대 {0}글자이하이어야 합니다"
+
+		            },
+		            pw: {
+		                required : "필수로입력하세요",
+		                minlength : "최소 {0}글자이상이어야 합니다",
+		                maxlength : "최대 {0}글자이하이어야 합니다",
+		                regex : "영문자, 숫자로 이루어져있으며 최소 하나이상 포함"
+		            },
+		            pwCheck: {
+		                required : "필수로입력하세요",
+		                equalTo : "비밀번호가 일치하지 않습니다."
+		            },
+		            name: {
+		                required : "필수로입력하세요",
+		                minlength : "최소 {0}글자이상이어야 합니다"
+		            },
+		            email: {
+		                required : "필수로입력하세요",
+		                email : "메일규칙에 어긋납니다"
+		            }
+		        }
+		    });
 	})
-	
+	$.validator.addMethod(
+	    "regex",
+	    function(value, element, regexp) {
+	        var re = new RegExp(regexp);
+	        return this.optional(element) || re.test(value);
+	    },
+	    "Please check your input."
+	);
 	
 	
 	</script>	
@@ -133,18 +172,28 @@
 			<form method="post" action="<%=request.getContextPath()%>/joinMembership" id="signup">
 				<div class="row">
 					<label class="col-4">아이디</label>
-					<input name="id" type="text"class="form-control col-7" placeholder="아이디" >
+					<input name="id" type="text"class="form-control col-7" placeholder="아이디"  >
 				</div>
+				<div class="row">
+					<label class="error offset-4 col-7" id="id-error" for="id"></label>
+				</div>
+				
 				<div>
 					<button type="button" class="btn btn-outline-success offset-4 col-7" id="dup">중복 확인</button>
 				</div>
 				<div class="row">
 					<label class="col-4">비밀번호</label>
-					<input name="pw" type="password"class="form-control col-7" placeholder="비밀번호" >
+					<input name="pw" type="password"class="form-control col-7" placeholder="비밀번호" id="pw">
+				</div>
+				<div class="row">
+					<label class="error offset-4 col-7" id="pw-error" for="pw"></label>
 				</div>
 				<div class="row">
 					<label class="col-4">비밀번호확인</label>
 					<input name="pwCheck" type="password"class="form-control col-7" placeholder="비밀번호확인">
+				</div>
+				<div class="row">
+					<label class="error offset-4 col-7" id="pwCheck-error" for="pwCheck"></label>
 				</div>
 				<div class="row">
 					<label class="col-4">성별</label>
@@ -162,8 +211,14 @@
 					<input name="email" type="email"class="form-control col-7" placeholder="이메일">
 				</div>
 				<div class="row">
+					<label class="error offset-4 col-7" id="email-error" for="email"></label>
+				</div>
+				<div class="row">
 					<label class="col-4">이름</label>
 					<input name="name" type="text"class="form-control col-7" placeholder="이름">
+				</div>
+				<div class="row">
+					<label class="error offset-4 col-7" id="name-error" for="name"></label>
 				</div>
 				<div class="offset-8 col-3 clearfix p-0">
 					<button class="btn btn-primary float-right" id="submit">가입</button>
